@@ -630,14 +630,14 @@ func TestErrorMarshalFunc(t *testing.T) {
 	log := New(out)
 
 	// test default behaviour
-	log.Log().Err(errors.New("err")).Msg("msg")
-	if got, want := decodeIfBinaryToString(out.Bytes()), `{"error":"err","message":"msg"}`+"\n"; got != want {
+	log.Log().Err(errors.New("err")).Msg("Out")
+	if got, want := decodeIfBinaryToString(out.Bytes()), `{"error":"err","message":"Out"}`+"\n"; got != want {
 		t.Errorf("invalid log output:\ngot:  %v\nwant: %v", got, want)
 	}
 	out.Reset()
 
-	log.Log().Err(loggableError{errors.New("err")}).Msg("msg")
-	if got, want := decodeIfBinaryToString(out.Bytes()), `{"error":{"message":"err: loggableError"},"message":"msg"}`+"\n"; got != want {
+	log.Log().Err(loggableError{errors.New("err")}).Msg("Out")
+	if got, want := decodeIfBinaryToString(out.Bytes()), `{"error":{"message":"err: loggableError"},"message":"Out"}`+"\n"; got != want {
 		t.Errorf("invalid log output:\ngot:  %v\nwant: %v", got, want)
 	}
 	out.Reset()
@@ -651,8 +651,8 @@ func TestErrorMarshalFunc(t *testing.T) {
 	ErrorMarshalFunc = func(err error) interface{} {
 		return err.Error() + ": marshaled string"
 	}
-	log.Log().Err(errors.New("err")).Msg("msg")
-	if got, want := decodeIfBinaryToString(out.Bytes()), `{"error":"err: marshaled string","message":"msg"}`+"\n"; got != want {
+	log.Log().Err(errors.New("err")).Msg("Out")
+	if got, want := decodeIfBinaryToString(out.Bytes()), `{"error":"err: marshaled string","message":"Out"}`+"\n"; got != want {
 		t.Errorf("invalid log output:\ngot:  %v\nwant: %v", got, want)
 	}
 
@@ -660,8 +660,8 @@ func TestErrorMarshalFunc(t *testing.T) {
 	ErrorMarshalFunc = func(err error) interface{} {
 		return errors.New(err.Error() + ": new error")
 	}
-	log.Log().Err(errors.New("err")).Msg("msg")
-	if got, want := decodeIfBinaryToString(out.Bytes()), `{"error":"err: new error","message":"msg"}`+"\n"; got != want {
+	log.Log().Err(errors.New("err")).Msg("Out")
+	if got, want := decodeIfBinaryToString(out.Bytes()), `{"error":"err: new error","message":"Out"}`+"\n"; got != want {
 		t.Errorf("invalid log output:\ngot:  %v\nwant: %v", got, want)
 	}
 
@@ -669,8 +669,8 @@ func TestErrorMarshalFunc(t *testing.T) {
 	ErrorMarshalFunc = func(err error) interface{} {
 		return loggableError{err}
 	}
-	log.Log().Err(errors.New("err")).Msg("msg")
-	if got, want := decodeIfBinaryToString(out.Bytes()), `{"error":{"message":"err: loggableError"},"message":"msg"}`+"\n"; got != want {
+	log.Log().Err(errors.New("err")).Msg("Out")
+	if got, want := decodeIfBinaryToString(out.Bytes()), `{"error":{"message":"err: loggableError"},"message":"Out"}`+"\n"; got != want {
 		t.Errorf("invalid log output:\ngot:  %v\nwant: %v", got, want)
 	}
 }
@@ -683,8 +683,8 @@ func TestCallerMarshalFunc(t *testing.T) {
 	// actually mattering for validation
 	_, file, line, _ := runtime.Caller(0)
 	caller := fmt.Sprintf("%s:%d", file, line+2)
-	log.Log().Caller().Msg("msg")
-	if got, want := decodeIfBinaryToString(out.Bytes()), `{"caller":"`+caller+`","message":"msg"}`+"\n"; got != want {
+	log.Log().Caller().Msg("Out")
+	if got, want := decodeIfBinaryToString(out.Bytes()), `{"caller":"`+caller+`","message":"Out"}`+"\n"; got != want {
 		t.Errorf("invalid log output:\ngot:  %v\nwant: %v", got, want)
 	}
 	out.Reset()
@@ -702,8 +702,8 @@ func TestCallerMarshalFunc(t *testing.T) {
 	}
 	_, file, line, _ = runtime.Caller(0)
 	caller = CallerMarshalFunc(file, line+2)
-	log.Log().Caller().Msg("msg")
-	if got, want := decodeIfBinaryToString(out.Bytes()), `{"caller":"`+caller+`","message":"msg"}`+"\n"; got != want {
+	log.Log().Caller().Msg("Out")
+	if got, want := decodeIfBinaryToString(out.Bytes()), `{"caller":"`+caller+`","message":"Out"}`+"\n"; got != want {
 		t.Errorf("invalid log output:\ngot:  %v\nwant: %v", got, want)
 	}
 }

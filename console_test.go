@@ -64,8 +64,8 @@ func TestConsoleLogger(t *testing.T) {
 			Float64("float", 1.23).
 			Uint64("small", 123).
 			Uint64("big", 1152921504606846976).
-			Msg("msg")
-		if got, want := strings.TrimSpace(buf.String()), "<nil> INF msg big=1152921504606846976 float=1.23 small=123"; got != want {
+			Msg("Out")
+		if got, want := strings.TrimSpace(buf.String()), "<nil> INF Out big=1152921504606846976 float=1.23 small=123"; got != want {
 			t.Errorf("\ngot:\n%s\nwant:\n%s", got, want)
 		}
 	})

@@ -1,6 +1,7 @@
 package info
 
 import (
+	"fmt"
 	"net"
 	"time"
 
@@ -9,11 +10,11 @@ import (
 )
 
 func Msg(msg string) {
-	log.Info().Msg(msg)
+	log.Info().Out(msg)
 }
 
 func Msgf(format string, v ...interface{}) {
-	log.Info().Msgf(format, v...)
+	log.Info().Out(fmt.Sprintf(format, v...))
 }
 
 func Err(err error) *zerolog.Event {

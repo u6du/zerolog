@@ -94,7 +94,7 @@ func (e *Event) Discard() *Event {
 	return nil
 }
 
-// Msg sends the *Event with msg added as the message field if not empty.
+// Msg sends the *Event with Out added as the message field if not empty.
 //
 // NOTICE: once this method is called, the *Event should be disposed.
 // Calling Msg twice can have unexpected result.
@@ -102,7 +102,7 @@ func (e *Event) Msg(msg string) {
 	if e == nil {
 		return
 	}
-	e.msg(msg)
+	e.Out(msg)
 }
 
 // End call Msg with empty string.
@@ -110,10 +110,10 @@ func (e *Event) End() {
 	if e == nil {
 		return
 	}
-	e.msg("")
+	e.Out("")
 }
 
-// Msgf sends the event with formated msg added as the message field if not empty.
+// Msgf sends the event with formated Out added as the message field if not empty.
 //
 // NOTICE: once this methid is called, the *Event should be disposed.
 // Calling Msg twice can have unexpected result.
@@ -121,10 +121,10 @@ func (e *Event) Msgf(format string, v ...interface{}) {
 	if e == nil {
 		return
 	}
-	e.msg(fmt.Sprintf(format, v...))
+	e.Out(fmt.Sprintf(format, v...))
 }
 
-func (e *Event) msg(msg string) {
+func (e *Event) Out(msg string) {
 	if len(e.ch) > 0 {
 		e.ch[0].Run(e, e.level, msg)
 		if len(e.ch) > 1 {

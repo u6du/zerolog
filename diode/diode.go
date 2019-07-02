@@ -8,7 +8,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/rs/zerolog/diode/internal/diodes"
+	"github.com/u6du/zerolog/diode/internal/diodes"
 )
 
 var bufPool = &sync.Pool{

@@ -107,7 +107,10 @@ func (e *Event) Msg(msg string) {
 
 // End call Msg with empty string.
 func (e *Event) End() {
-	e.Msg("")
+	if e == nil {
+		return
+	}
+	e.msg("")
 }
 
 // Msgf sends the event with formated msg added as the message field if not empty.

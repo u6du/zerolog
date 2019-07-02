@@ -24,10 +24,13 @@ func Dict(key string, dict *zerolog.Event) *zerolog.Event { return log.Info().Di
 func Array(key string, arr zerolog.LogArrayMarshaler) *zerolog.Event {
 	return log.Info().Array(key, arr)
 }
+func EmbedObject(obj zerolog.LogObjectMarshaler) *zerolog.Event {
+	return log.Info().EmbedObject(obj)
+}
 func Object(key string, obj zerolog.LogObjectMarshaler) *zerolog.Event {
 	return log.Info().Object(key, obj)
 }
-
+func Str(key string, val string) *zerolog.Event         { return log.Info().Str(key, val) }
 func Strs(key string, vals []string) *zerolog.Event     { return log.Info().Strs(key, vals) }
 func Bytes(key string, val []byte) *zerolog.Event       { return log.Info().Bytes(key, val) }
 func Hex(key string, val []byte) *zerolog.Event         { return log.Info().Hex(key, val) }
